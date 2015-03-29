@@ -56,7 +56,7 @@ public class Client extends JFrame{
          setupStreams();
          whileChatting();
       }catch(EOFException eofException){
-         showMessage("\n Client bağlantısı sonlandırıldı.");
+         showMessage("\n Client connection is terminated.");
       }catch(IOException ioException){
          ioException.printStackTrace();
       }finally{
@@ -66,11 +66,11 @@ public class Client extends JFrame{
    
    //connect to server
    private void connectToServer() throws IOException{
-      showMessage("Bağlanmaya çalışılıyor... \n");
+      showMessage("Trying to connect to the server... \n");
       
       if(connectionType == TCP){
     	  connection = new Socket(InetAddress.getByName(serverIP), serverSocket);
-    	  showMessage("Bağlanılan: " + connection.getInetAddress().getHostName() );
+    	  showMessage("Connected : " + connection.getInetAddress().getHostName() );
       }
       if(connectionType == UDP){
     	  datagramsocket = new DatagramSocket();
@@ -90,7 +90,7 @@ public class Client extends JFrame{
 	      udpOutput = new DatagramPacket(data, data.length,adres,serverSocket);
 	      udpInput = new DatagramPacket(data, data.length,adres,serverSocket);
 	  }
-      showMessage("\n Streams hazır! \n");
+      showMessage("\n Streams is ready! \n");
    }
    
    //while chatting with server
@@ -108,14 +108,14 @@ public class Client extends JFrame{
             showMessage("\n" + message);
             Toolkit.getDefaultToolkit().beep();
          }catch(ClassNotFoundException classNotfoundException){
-            showMessage("\n hata...");
+            showMessage("\n Error...");
          }
       }while(!message.equals("SERVER - END"));
    }
    
    //close the streams and sockets
    private void closeCrap(){
-      showMessage("\n Kapatılıyor...");
+      showMessage("\n Closing...");
       ableToType(false);
       try{
     	 if(connectionType == TCP){ 
@@ -144,7 +144,7 @@ public class Client extends JFrame{
     	  } 
          showMessage("\nCLIENT - " + message);
       }catch(IOException ioException){
-         chatWindow.append("\n Mesaj gönderiminde hata!");
+         chatWindow.append("\n Error in sending!");
       }
    }
    

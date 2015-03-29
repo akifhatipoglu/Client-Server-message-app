@@ -60,7 +60,7 @@ public class Server extends JFrame {
 					setupStreams();
 					whileChatting();
 				} catch (EOFException eofException) {
-					showMessage("\n Server baglantiyi sonlandirdi! ");
+					showMessage("\n Server connection has terminated! ");
 				} finally {
 					closeCrap();
 				}
@@ -72,10 +72,10 @@ public class Server extends JFrame {
 
 	// wait for connection, then display connection information
 	private void waitForConnection() throws IOException {
-		showMessage(" istemcinin bağlanması bekleniyor... \n");
+		showMessage(" waiting to client ... \n");
 		if(connectionType == TCP){
 			connection = server.accept();
-			showMessage(" Bağlanıldı: "
+			showMessage(" Connected: "
 					+ connection.getInetAddress().getHostName());
 		}
 		
@@ -93,12 +93,12 @@ public class Server extends JFrame {
 			udpInput = new DatagramPacket(data, data.length);
 			udpOutput =  new DatagramPacket(data, data.length);
 		}
-		showMessage("\n Streams kuruldu! \n");
+		showMessage("\n Streams is ready! \n");
 	}
 
 	// during the chat conversation
 	private void whileChatting() throws IOException {
-		String message = " Bağlantı başarılı! ";
+		String message = " Successful connection! ";
 		sendMessage(message);
 		ableToType(true);
 		do {
@@ -116,14 +116,14 @@ public class Server extends JFrame {
 					}
 				}
 			} catch (ClassNotFoundException classNotFoundException) {
-				showMessage("\n Hata!");
+				showMessage("\n Error!");
 			}
 		} while (!message.equals("CLIENT - END"));
 	}
 
 	// close streams and sockets after you are done chatting
 	private void closeCrap() {
-		showMessage("\n Bağlantı sonlandırılıyor... \n");
+		showMessage("\n Connection closing ... \n");
 		ableToType(false);
 		try {
 			if(connectionType == TCP){
@@ -157,7 +157,7 @@ public class Server extends JFrame {
 			}
 			showMessage("\nSERVER - " + message);
 		} catch (IOException ioException) {
-			chatWindow.append("\n ERROR: Mesaj gönderilemedi.");
+			chatWindow.append("\n ERROR: Error in message sending.");
 		}
 	}
 
